@@ -1,10 +1,9 @@
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.chromium.AddHasLaunchApp;
 import pages.AllPages;
+
 import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
 import static testdata.TestData.*;
@@ -31,8 +30,8 @@ public class AllureHW2 extends TestBase {
             allPages.typeUserEmail(userEmail);
             allPages.typeUserNumber(userPhone);
         });
-            allPages.typeUserGender(userGender);
-            allPages.setDayOfBirth(dayOfBirth, mounthOfBirth, yearOfBirth);
+        allPages.typeUserGender(userGender);
+        allPages.setDayOfBirth(dayOfBirth, mounthOfBirth, yearOfBirth);
         step("Выбор Увлечений/Хобби", () -> {
             allPages.typeUserSubject(sendKey);
             allPages.typeUserHobbies(userHobbies);
@@ -47,7 +46,7 @@ public class AllureHW2 extends TestBase {
             allPages.typeUserCity(userCity);
         });
         allPages.submitButtonClick();
-        step("Проверка формы",() -> {
+        step("Проверка формы", () -> {
             allPages.checkFormFieldHardForm("Student Name", (firstName + " " + lastName))
                     .checkFormFieldHardForm("Student Email", userEmail)
                     .checkFormFieldHardForm("Gender", userGender)
@@ -73,11 +72,13 @@ public class AllureHW2 extends TestBase {
                 .typeUserEmail(userEmail)
                 .typeUserCurrentAddress(userCurrentAdress)
                 .typeUserPermanentAddress(userPermanentAdress)
-                .submitButtonClick()
-                .checkFormFieldEasyForm(firstName + " " + lastName)
-                .checkFormFieldEasyForm(userEmail)
-                .checkFormFieldEasyForm(userCurrentAdress)
-                .checkFormFieldEasyForm(userPermanentAdress);
+                .submitButtonClick();
+        step("Проверка формы", () -> {
+            allPages.checkFormFieldEasyForm(firstName + " " + lastName)
+                    .checkFormFieldEasyForm(userEmail)
+                    .checkFormFieldEasyForm(userCurrentAdress)
+                    .checkFormFieldEasyForm(userPermanentAdress);
+        });
 
 
     }
@@ -113,7 +114,7 @@ public class AllureHW2 extends TestBase {
                 .typeUserName(firstName + " " + lastName)
                 .typeUserEmail(userEmail)
                 .submitButtonClick();
-        step("Проверка формы",() -> {
+        step("Проверка формы", () -> {
             allPages.checkFormFieldEasyForm(firstName + " " + lastName)
                     .checkFormFieldEasyForm(userEmail);
         });

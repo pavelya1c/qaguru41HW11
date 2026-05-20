@@ -88,7 +88,6 @@ public class AllPages {
         return this;
     }
 
-
     @Step("Выбор Hobbies")
     public AllPages typeUserHobbies(String value) {
         hobbiesInput.$(byText(value)).click();
