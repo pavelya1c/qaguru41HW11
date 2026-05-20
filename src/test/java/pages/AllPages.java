@@ -121,7 +121,7 @@ public class AllPages {
         return this;
     }
 
-    @Step("Выбора Date of birth")
+    @Step("Заполнение Date of birth")
     public AllPages setDayOfBirth(String day, String mounth, String year) {
         $("#dateOfBirthInput").click();
         calendarComponent.setDate(day, mounth, year);
@@ -160,7 +160,7 @@ public class AllPages {
         return this;
     }
 
-    @Step("Проверка заполнения формы HardForm")
+    @Step("Проверка введеных данных, с данными отображаемыми в форме")
     public AllPages checkFormFieldHardForm(String key, String value) {
         formFieldHardFormComponent.FormFieldHardForm(key, value);
         return this;

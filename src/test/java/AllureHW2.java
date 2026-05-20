@@ -1,5 +1,6 @@
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.chromium.AddHasLaunchApp;
@@ -14,7 +15,7 @@ public class AllureHW2 extends TestBase {
 
 
     @Test
-    @DisplayName("Успешное заполнение формы регимстрации с выполнением проверки заполненных полей")
+    @DisplayName("Успешное заполнение всех полей формы регистрации с выполнением проверки заполненных полей HardForm")
     public void successfulFormSubmissionWithAllFieldsTestHardForm() {
 
         SelenideLogger.addListener("allure", new AllureSelenide());
@@ -22,90 +23,50 @@ public class AllureHW2 extends TestBase {
         step("Открытие страницы", () -> {
             allPages.openPage("/automation-practice-form");
         });
-        step("Заполнение Имени", () -> {
+        step("Ввод Имени/Фамилии", () -> {
             allPages.typeUserFirstName(firstName);
-        });
-        step("Заполнение Фамилии", () -> {
             allPages.typeUserLastName(lastName);
         });
-        step("Заполнение Эмаила", () -> {
+        step("Ввод Email/Phone", () -> {
             allPages.typeUserEmail(userEmail);
-        });
-        step("Заполнение Мобильного номера", () -> {
             allPages.typeUserNumber(userPhone);
         });
-        step("Выбор пола", () -> {
             allPages.typeUserGender(userGender);
-        });
-        step("Заполнение даты рождения", () -> {
             allPages.setDayOfBirth(dayOfBirth, mounthOfBirth, yearOfBirth);
-        });
-        step("Выбор увлечений", () -> {
+        step("Выбор Увлечений/Хобби", () -> {
             allPages.typeUserSubject(sendKey);
-        });
-        step("Выбор хобби", () -> {
             allPages.typeUserHobbies(userHobbies);
         });
         sleep(1000);
-        step("Выбор картинки", () -> {
+        step("Выбор/Загрузка изображения", () -> {
             allPages.typeUserPicture(userPicture);
         });
-        step("Заполнение адресса проживания", () -> {
+        step("Ввод адресса проживания", () -> {
             allPages.typeUserCurrentAddress(userCurrentAdress);
-        });
-        step("Выбор штата", () -> {
             allPages.typeUserState(userState);
-        });
-        step("Выбор города", () -> {
             allPages.typeUserCity(userCity);
         });
-        allPages.submitButtonClick()
-                .checkFormFieldHardForm("Student Name", (firstName + " " + lastName))
-                .checkFormFieldHardForm("Student Email", userEmail)
-                .checkFormFieldHardForm("Gender", userGender)
-                .checkFormFieldHardForm("Mobile", userPhone)
-                .checkFormFieldHardForm("Hobbies", userHobbies)
-                .checkFormFieldHardForm("Date of Birth", (dayOfBirth + " " + mounthOfBirth + "," + yearOfBirth))
-                .checkFormFieldHardForm("Subjects", userSubjects)
-                .checkFormFieldHardForm("Picture", userPicture)
-                .checkFormFieldHardForm("Address", userCurrentAdress)
-                .checkFormFieldHardForm("State and City", ((userState + " " + userCity)));
+        allPages.submitButtonClick();
+        step("Проверка формы",() -> {
+            allPages.checkFormFieldHardForm("Student Name", (firstName + " " + lastName))
+                    .checkFormFieldHardForm("Student Email", userEmail)
+                    .checkFormFieldHardForm("Gender", userGender)
+                    .checkFormFieldHardForm("Mobile", userPhone)
+                    .checkFormFieldHardForm("Hobbies", userHobbies)
+                    .checkFormFieldHardForm("Date of Birth", (dayOfBirth + " " + mounthOfBirth + "," + yearOfBirth))
+                    .checkFormFieldHardForm("Subjects", userSubjects)
+                    .checkFormFieldHardForm("Picture", userPicture)
+                    .checkFormFieldHardForm("Address", userCurrentAdress)
+                    .checkFormFieldHardForm("State and City", ((userState + " " + userCity)));
+        });
+
     }
 
-
-
-
-
-
-
-
-//            allPages.typeUserEmail(userEmail)
-//                .typeUserNumber(userPhone)
-//                .typeUserGender(userGender)
-//                .setDayOfBirth(dayOfBirth, mounthOfBirth, yearOfBirth)
-//                .typeUserSubject(sendKey)
-//                .typeUserHobbies(userHobbies)
-//                .typeUserPicture(userPicture)
-//                .typeUserCurrentAddress(userCurrentAdress)
-//                .typeUserState(userState)
-//                .typeUserCity(userCity)
-//                .submitButtonClick()
-//                .checkFormFieldHardForm("Student Name", (firstName + " " + lastName))
-//                .checkFormFieldHardForm("Student Email", userEmail)
-//                .checkFormFieldHardForm("Gender", userGender)
-//                .checkFormFieldHardForm("Mobile", userPhone)
-//                .checkFormFieldHardForm("Hobbies", userHobbies)
-//                .checkFormFieldHardForm("Date of Birth", (dayOfBirth + " " + mounthOfBirth + "," + yearOfBirth))
-//                .checkFormFieldHardForm("Subjects", userSubjects)
-//                .checkFormFieldHardForm("Picture", userPicture)
-//                .checkFormFieldHardForm("Address", userCurrentAdress)
-//                .checkFormFieldHardForm("State and City", ((userState + " " + userCity)));
-
-
-
-
     @Test
+    @DisplayName("Успешное заполнение всех полей формы регистрации с выполнением проверки заполненных полей EasyForm")
     void successfulFormSubmissionWithAllFieldsTestEasyForm() {
+
+        SelenideLogger.addListener("allure", new AllureSelenide());
 
         allPages.openPage("/text-box")
                 .typeUserName(firstName + " " + lastName)
@@ -122,28 +83,40 @@ public class AllureHW2 extends TestBase {
     }
 
     @Test
+    @DisplayName("Успешное заполнение обязательных полей формы регистрации с выполнением проверки заполненных полей HardForm")
     public void successfulFormSubmissionWithRequiredFieldsTestHardForm() {
+
+        SelenideLogger.addListener("allure", new AllureSelenide());
+
         open("/automation-practice-form");
         allPages.typeUserFirstName(firstName)
                 .typeUserLastName(lastName)
                 .typeUserEmail(userEmail)
                 .typeUserNumber(userPhone)
                 .typeUserGender(userGender)
-                .submitButtonClick()
-                .checkFormFieldHardForm("Student Name", (firstName + " " + lastName))
-                .checkFormFieldHardForm("Student Email", userEmail)
-                .checkFormFieldHardForm("Gender", userGender)
-                .checkFormFieldHardForm("Mobile", userPhone);
+                .submitButtonClick();
+        step("Проверка формы", () -> {
+            allPages.checkFormFieldHardForm("Student Name", (firstName + " " + lastName))
+                    .checkFormFieldHardForm("Student Email", userEmail)
+                    .checkFormFieldHardForm("Gender", userGender)
+                    .checkFormFieldHardForm("Mobile", userPhone);
+        });
     }
 
     @Test
+    @DisplayName("Успешное заполнение обязательных полей формы регистрации с выполнением проверки заполненных полей EasyForm")
     public void successfulFormSubmissionWithNoTAllFieldsTestEasyForm() {
+
+        SelenideLogger.addListener("allure", new AllureSelenide());
+
         allPages.openPage("/text-box")
                 .typeUserName(firstName + " " + lastName)
                 .typeUserEmail(userEmail)
-                .submitButtonClick()
-                .checkFormFieldEasyForm(firstName + " " + lastName)
-                .checkFormFieldEasyForm(userEmail);
+                .submitButtonClick();
+        step("Проверка формы",() -> {
+            allPages.checkFormFieldEasyForm(firstName + " " + lastName)
+                    .checkFormFieldEasyForm(userEmail);
+        });
 
 
     }
@@ -152,6 +125,9 @@ public class AllureHW2 extends TestBase {
 
     @Test
     public void shouldShowValidationErrorsWhenAllRequiredFieldsAreEmptyTestHardForm() {
+
+        SelenideLogger.addListener("allure", new AllureSelenide());
+
         allPages.openPage("/automation-practice-form")
                 .typeUserGender(userGender)
                 .submitButtonClick()
@@ -160,6 +136,9 @@ public class AllureHW2 extends TestBase {
 
     @Test
     public void shouldShowValidationErrorsWhenFirstNameAreEmptyTestHardForm() {
+
+        SelenideLogger.addListener("allure", new AllureSelenide());
+
         allPages.openPage("/automation-practice-form")
                 .typeUserLastName(lastName)
                 .typeUserEmail(userEmail)
@@ -171,6 +150,9 @@ public class AllureHW2 extends TestBase {
 
     @Test
     public void shouldNotDisplayResultTableWhenFormSubmissionIsInvalidTestHardForm() {
+
+        SelenideLogger.addListener("allure", new AllureSelenide());
+
         allPages.openPage("/automation-practice-form")
                 .typeUserLastName(lastName)
                 .typeUserEmail(userEmail)
@@ -182,6 +164,9 @@ public class AllureHW2 extends TestBase {
 
     @Test
     public void shouldShowValidationErrorWhenInvalidEmailIsEnteredTestEasyForm() {
+
+        SelenideLogger.addListener("allure", new AllureSelenide());
+
         allPages.openPage("/text-box")
                 .typeUserEmail(userEmailNotValid)
                 .submitButtonClick()
