@@ -9,6 +9,7 @@ public class TestBase {
         Configuration.pageLoadStrategy = "eager";
         Configuration.timeout = 5000;
         Configuration.headless = false;
+        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
         //  Configuration.holdBrowserOpen = false;
 
     }
