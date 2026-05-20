@@ -2,6 +2,7 @@ package pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import pages.components.CalendarComponent;
 import pages.components.FormFieldEasyFormComponent;
 import pages.components.FormFieldHardFormComponent;
@@ -36,42 +37,50 @@ public class AllPages {
     private final SelenideElement userFormTable = $("#userForm");
 
 
+    @Step("Переход на страницу")
     public AllPages openPage(String value) {
         open(value);
         return this;
     }
 
+    @Step("Ввод FirstName")
     public AllPages typeUserFirstName(String value) {
         firstNameInput.setValue(value);
         return this;
     }
 
+    @Step("Ввод LastName")
     public AllPages typeUserLastName(String value) {
         lastNameInput.setValue(value);
         return this;
     }
 
+    @Step("Ввод email")
     public AllPages typeUserEmail(String value) {
         emailInput.setValue(value);
         return this;
     }
 
+    @Step("Ввода MobileNumber")
     public AllPages typeUserNumber(String value) {
         numberInput.setValue(value);
         return this;
     }
 
+    @Step("Нажатие кнопки Submit")
     public AllPages submitButtonClick() {
         submitButton.click();
         return this;
     }
 
+    @Step("Выбор Gender")
     public AllPages typeUserGender(String value) {
         genderInput.shouldBe(visible)
                 .$(byText(value)).click();
         return this;
     }
 
+    @Step("Выбор Subject")
     public AllPages typeUserSubject(String value) {
         subjectInput.shouldBe(visible)
                 .setValue(value)
@@ -80,71 +89,84 @@ public class AllPages {
     }
 
 
+    @Step("Выбор Hobbies")
     public AllPages typeUserHobbies(String value) {
         hobbiesInput.$(byText(value)).click();
         return this;
     }
 
+    @Step("Добавление Picture")
     public AllPages typeUserPicture(String value) {
         pictureInput.uploadFromClasspath(value);
         return this;
     }
 
+    @Step("Ввод Current Adress")
     public AllPages typeUserCurrentAddress(String value) {
         currentAdressInput.setValue(value);
         return this;
     }
 
+    @Step("Выбор State")
     public AllPages typeUserState(String value) {
         stateInput.click();
         $(byText(value)).click();
         return this;
     }
 
+    @Step("Выбор City")
     public AllPages typeUserCity(String value) {
         cityInput.click();
         $(byText(value)).click();
         return this;
     }
 
+    @Step("Выбора Date of birth")
     public AllPages setDayOfBirth(String day, String mounth, String year) {
         $("#dateOfBirthInput").click();
         calendarComponent.setDate(day, mounth, year);
         return this;
     }
 
+    @Step("Ввод UserName")
     public AllPages typeUserName(String value) {
         userNameInput.setValue(value);
         return this;
     }
 
+    @Step("Ввод PermanentAddress")
     public AllPages typeUserPermanentAddress(String value) {
         permanentAddressInput.setValue(value);
         return this;
     }
 
 
+    @Step("Проверка формы валидации HardForm")
     public AllPages userFormWasValidatedHardForm() {
         userFormTable.shouldHave(cssClass("was-validated"));
         return this;
     }
 
+    @Step("Проверка не валидности формы HardForm")
     public AllPages userFormWasNotValidatedHardForm() {
         userFormTable.shouldNotHave(cssClass("table-dark"));
         return this;
     }
 
+    @Step("Проверка формы валидации EasyForm")
     public AllPages userFormWasValidatedEasyForm() {
         emailInput.shouldHave(cssClass("field-error"))
                 .shouldHave(cssClass("form-control"));
         return this;
     }
 
+    @Step("Проверка заполнения формы HardForm")
     public AllPages checkFormFieldHardForm(String key, String value) {
         formFieldHardFormComponent.FormFieldHardForm(key, value);
         return this;
     }
 
+    @Step("Проверка заполнения формы EasyForm")
     public AllPages checkFormFieldEasyForm(String value) {
         formFieldEasyFormComponent.FormFieldEasyForm(value);
         return this;
