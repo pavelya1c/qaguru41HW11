@@ -1,4 +1,5 @@
 import com.codeborne.selenide.logevents.SelenideLogger;
+import helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,6 +26,7 @@ public class AllureHW2 extends TestBase {
         step("Ввод Имени/Фамилии", () -> {
             allPages.typeUserFirstName(firstName);
             allPages.typeUserLastName(lastName);
+            Attach.screenshotAs("Screenshot FirstLastName" + " " + firstName + " " + lastName);
         });
         step("Ввод Email/Phone", () -> {
             allPages.typeUserEmail(userEmail);
@@ -67,12 +69,15 @@ public class AllureHW2 extends TestBase {
 
         SelenideLogger.addListener("allure", new AllureSelenide());
 
-        allPages.openPage("/text-box")
-                .typeUserName(firstName + " " + lastName)
-                .typeUserEmail(userEmail)
-                .typeUserCurrentAddress(userCurrentAdress)
-                .typeUserPermanentAddress(userPermanentAdress)
-                .submitButtonClick();
+        allPages.openPage("/text-box");
+        step("Ввод Имени/Фамилии", () -> {
+                    allPages.typeUserName(firstName + " " + lastName);
+                    Attach.screenshotAs("Screenshot FirstLastName" + " " + firstName + " " + lastName);
+                });
+                allPages.typeUserEmail(userEmail)
+                        .typeUserCurrentAddress(userCurrentAdress)
+                        .typeUserPermanentAddress(userPermanentAdress)
+                        .submitButtonClick();
         step("Проверка формы", () -> {
             allPages.checkFormFieldEasyForm(firstName + " " + lastName)
                     .checkFormFieldEasyForm(userEmail)
@@ -90,9 +95,12 @@ public class AllureHW2 extends TestBase {
         SelenideLogger.addListener("allure", new AllureSelenide());
 
         open("/automation-practice-form");
-        allPages.typeUserFirstName(firstName)
-                .typeUserLastName(lastName)
-                .typeUserEmail(userEmail)
+        step("Ввод Имени/Фамилии", () -> {
+            allPages.typeUserFirstName(firstName)
+                    .typeUserLastName(lastName);
+            Attach.screenshotAs("Screenshot FirstLastName" + " " + " " + firstName + " " + lastName);
+        });
+        allPages.typeUserEmail(userEmail)
                 .typeUserNumber(userPhone)
                 .typeUserGender(userGender)
                 .submitButtonClick();
@@ -110,10 +118,14 @@ public class AllureHW2 extends TestBase {
 
         SelenideLogger.addListener("allure", new AllureSelenide());
 
-        allPages.openPage("/text-box")
-                .typeUserName(firstName + " " + lastName)
-                .typeUserEmail(userEmail)
-                .submitButtonClick();
+        allPages.openPage("/text-box");
+        step("Ввод Имени/Фамилии", () -> {
+            allPages.typeUserName(firstName + " " + lastName)
+                    .typeUserEmail(userEmail);
+            Attach.screenshotAs("Screenshot FirstLastName" + " " + firstName + " " + lastName);
+        });
+
+        allPages.submitButtonClick();
         step("Проверка формы", () -> {
             allPages.checkFormFieldEasyForm(firstName + " " + lastName)
                     .checkFormFieldEasyForm(userEmail);
