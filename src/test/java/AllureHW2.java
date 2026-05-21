@@ -1,3 +1,4 @@
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
@@ -11,8 +12,8 @@ import static testdata.TestData.*;
 
 
 public class AllureHW2 extends TestBase {
-    AllPages allPages = new AllPages();
 
+    AllPages allPages = new AllPages();
 
     @Test
     @DisplayName("Успешное заполнение всех полей формы регистрации с выполнением проверки заполненных полей HardForm")
